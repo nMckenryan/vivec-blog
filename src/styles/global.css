@@ -1,4 +1,9 @@
+@import url(//db.onlinewebfonts.com/c/7e81f1b7ff8e14db11fb2579b2e8441d?family=Magic+Cards);
 /* @import url("/fonts/stylesheet.css"); */
 @tailwind base;
 @tailwind components;
+/* @font-face {
+  font-family: "Magic Cards Normal";
+  src: local("Magic Cards Normal"), url(\MagicCardsNormal.woff) format("woff");
+} */
 @tailwind utilities;

@@ -14,12 +14,20 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "cy:open": "cypress open",
+    "tw:build": " npx tailwindcss -i ./src/styles/global.css -o ./public/css/tailwind.css",
     "test:e2e": "start-server-and-test develop http://localhost:8000 cy:open"
   },
   "dependencies": {
+    "axios": "^0.21.4",
+    "crypto": "^1.0.1",
     "gatsby": "^3.13.0",
+    "gatsby-plugin-typography": "^3.13.0",
+    "gatsby-source-graphql": "^3.13.0",
+    "gatsby-source-rest-api": "^0.2.3",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-typography": "^0.16.20",
+    "typography": "^0.16.21"
   },
   "devDependencies": {
     "autoprefixer": "^10.3.4",

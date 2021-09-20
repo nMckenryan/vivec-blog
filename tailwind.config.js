@@ -6,10 +6,11 @@ module.exports = {
       darkleather: "#89381B",
       lightleather: "#A3570F",
       shadow: "#5C2C1C",
-      brightestGold: "#F9F8D9",
+      brightgold: "#F9F8D9",
       gold: "#F9ED5B",
       black: "#040507",
     },
+
     extend: {
       // RADIAL GRADIENT CONFIG
       backgroundImage: {
@@ -18,7 +19,7 @@ module.exports = {
 
       // Magic Font
       fontFamily: {
-        sans: ["Magic Cards Normal", "serif"],
+        magic: ["'Magic Cards'"],
       },
     },
   },
