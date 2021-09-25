@@ -22,7 +22,6 @@ const IndexPage = () => {
     return {
       number,
       contents,
-      // types: types.map((type) => type.type.name),
     };
   });
 
@@ -31,9 +30,11 @@ const IndexPage = () => {
       <ul>
         {allRestApiApiSermons.map((sermon, index) => {
           return (
-            <li key={sermon.number}>
-              <h1 class="text-lg text-gold">Lesson {sermon.number}</h1>
-              <p class="text-brightgold">{sermon.contents}</p>
+            <li data-testid="t" key={sermon.number} className="w-1/2 mx-auto">
+              <h1 class="text-lg text-gold" data-testid="lesson">
+                Lesson {sermon.number}
+              </h1>
+              <p class="text-brightgold text-baseline">{sermon.contents}</p>
             </li>
           );
         })}

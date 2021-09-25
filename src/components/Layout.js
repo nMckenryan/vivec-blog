@@ -1,19 +1,14 @@
 import React from "react";
-import NavBar from "./Navbar";
 
 export default function Layout({ children }) {
+  const sermonList = children;
+
   return (
-    <div
-      className="h-screen bg-gradient-radial from-lightleather to-shadow "
-      id="layout"
-    >
+    <div className="h-screen bg-darkleather" id="layout">
       <title>Vivec Sermon API Showcase</title>
-      <NavBar />
-      <div className="font-serif"></div>
-      {children}
-      <footer>
-        <p>NMR 2021</p>
-      </footer>
+      <div className="font-serif bg-gradient-radial from-lightleather to-shadow ">
+        {sermonList}
+      </div>
     </div>
   );
 }
