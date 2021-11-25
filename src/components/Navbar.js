@@ -8,7 +8,6 @@ export default function Navbar(sermNum) {
       <Link class="inline-block" to="/">
         {sermNum}
       </Link>
-      {/* Populate dynamically */}
     </nav>
   );
 }

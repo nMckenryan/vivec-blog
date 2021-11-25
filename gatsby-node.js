@@ -1,83 +1,48 @@
-// const fetch = require("node-fetch");
+const axios = require('axios');
+const crypto = require('crypto');
 
-// const NODE_TYPE = "Pokemon";
+exports.sourceNodes = async ({
+  actions
+}) => {
+  const { createNode } = actions;
 
-// exports.sourceNodes = async ({
-//   actions,
-//   createContentDigest,
-//   createNodeId,
-// }) => {
-//   const { createNode } = actions;
+  const fetchRawData = () => axios.get(`https://scrsnyygmf.execute-api.ap-southeast-2.amazonaws.com/api/sermons`);
 
-//   const response = await fetch(`https://pokeapi.co/api/v2/pokemon`);
-//   // "https://pa6bmhahhc.execute-api.ap-southeast-2.amazonaws.com/api/sermons"
+  // await for results
+  const res = await fetchRawData();
+  console.log(res.data.results)
 
-//   // console.log(response); OK
-//   const json = await response.json();
+  // map into  results and create nodes
+  res.data.map((sermon, i) => {
+    console.log(sermon);
 
-//   const { results = [] } = json;
+    const sermonNode = {
+      // Required fields
+      id: `${i}`,
+      parent: `__SOURCE__`,
+      internal: {
+        type: `Sermon`, // name of the graphQL query --> allRandomUser {}
+        // contentDigest will be added just after
+        // but it is required
+      },
+      children: [],
 
-//   const pokemon = await Promise.all(
-//     results.map(async (result) => {
-//       const { url } = result;
-//       const pokeResponse = await fetch(url);
-//       return await pokeResponse.json();
-//     })
-//   );
-//   console.log("JSON" + pokemon + " TEST");
-//   pokemon.forEach((node, index) => {
-//     console.log(node);
-//     createNode({
-//       ...node,
-//       id: createNodeId(`${NODE_TYPE}-${node.number}`),
-//       parent: null,
-//       children: [],
-//       internal: {
-//         type: NODE_TYPE,
-//         content: JSON.stringify(node),
-//         contentDigest: createContentDigest(node),
-//       },
-//     });
-//   });
-// };
+      number: sermon.number,
+      contents: sermon.contents,
+    }
 
-//
+    
+    // Get content digest of node. (Required field)
+    const contentDigest = crypto
+      .createHash(`md5`)
+      .update(JSON.stringify(sermonNode))
+      .digest(`hex`);
+    // add it to userNode
+    sermonNode.internal.contentDigest = contentDigest;
 
-// const fetch = require("node-fetch");
+    // Create node with the gatsby createNode() API
+    createNode(sermonNode);
+  });
 
-// const NODE_TYPE = "Pokemon";
-
-// exports.sourceNodes = async ({
-//   actions,
-//   createContentDigest,
-//   createNodeId,
-// }) => {
-//   const { createNode } = actions;
-
-//   const response = await fetch("https://pokeapi.co/api/v2/pokemon");
-//   const json = await response.json();
-//   const { results = [] } = json;
-//   console.log(results);
-
-//   const pokemon = await Promise.all(
-//     results.map(async (result) => {
-//       const { url } = result;
-//       const pokeResponse = await fetch(url);
-//       return await pokeResponse.json();
-//     })
-//   );
-
-//   pokemon.forEach((node, index) => {
-//     createNode({
-//       ...node,
-//       id: createNodeId(`${NODE_TYPE}-${node.id}`),
-//       parent: null,
-//       children: [],
-//       internal: {
-//         type: NODE_TYPE,
-//         content: JSON.stringify(node),
-//         contentDigest: createContentDigest(node),
-//       },
-//     });
-//   });
-// };
+  return;
+}

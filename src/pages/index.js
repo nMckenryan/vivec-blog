@@ -2,33 +2,30 @@ import React from "react";
 import { graphql, useStaticQuery } from "gatsby";
 import Layout from "../components/Layout";
 
-// markup
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
-    query MyQuery {
-      allRestApiApiSermons {
-        nodes {
-          number
-          contents
-        }
+  query MyQuery {
+    allSermon {
+      nodes {
+        number
+        contents
       }
     }
+  }
   `);
 
-  console.log(data.allRestApiApiSermons);
-
-  const allRestApiApiSermons = data.allRestApiApiSermons.nodes.map((node) => {
-    const { number, contents } = node;
+  const allSermon = data.allSermon.nodes.map((node) => {
+    const { contents, number } = node;
     return {
-      number,
-      contents,
+      contents, number
     };
   });
 
   return (
     <Layout>
       <ul>
-        {allRestApiApiSermons.map((sermon, index) => {
+        {/* SERMON VIEW */}
+        {allSermon.map((sermon, index) => {
           return (
             <li data-testid="t" key={sermon.number} className="w-1/2 mx-auto">
               <h1 class="text-lg text-gold" data-testid="lesson">
